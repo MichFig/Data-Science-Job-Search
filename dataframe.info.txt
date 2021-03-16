@@ -1,0 +1,111 @@
+'city', 'city_development_index', 'gender', 'relevent_experience',
+'enrolled_university', 'education_level	major_discipline','experience',	'company_size',	'company_type',	'last_new_job', 'training_hours'
+
+
+ on= 'city_development_index', 'gender', 'relevent_experience',
+'enrolled_university', 'education_level	major_discipline','experience',	'company_size',	'company_type',	'last_new_job', 'training_hours'
+)
+
+ 0   enrollee_id             1019 non-null   int64  
+ 1   city_development_index  1019 non-null   float64
+ 2   gender                  1019 non-null   object 
+ 3   relevent_experience     1019 non-null   object 
+ 4   enrolled_university     1019 non-null   object 
+ 5   education_level         1019 non-null   object 
+ 6   major_discipline        1019 non-null   object 
+ 7   experience              1019 non-null   object 
+ 8   company_size            1019 non-null   object 
+ 9   company_type            1019 non-null   object 
+ 10  last_new_job            1019 non-null   object 
+ 11  training_hours          1019 non-null   int64  
+
+
+
+, on='enrollee_id', 'city_development_index', 'gender', 'relevent_experience',
+'enrolled_university', 'education_level', 'major_discipline', 'experience',	'company_size',	'company_type',	'last_new_job', 'training_hours')
+merged_df.head()
+
+# Write DataFrame to CSV
+verticalStack.to_csv('out.csv')
+
+ 0   enrollee_id_x             int64  
+ 1   city_development_index_x  float64
+ 2   gender                    object 
+ 3   relevent_experience_x     object 
+ 4   enrolled_university_x     object 
+ 5   education_level_x         object 
+ 6   major_discipline_x        object 
+ 7   experience_x              object 
+ 8   company_size_x            object 
+ 9   company_type_x            object 
+ 10  last_new_job_x            object 
+ 11  training_hours_x          int64  
+ 12  target                    float64
+ 13  enrollee_id_y             int64  
+ 14  city_development_index_y  float64
+ 15  relevent_experience_y     object 
+ 16  enrolled_university_y     object 
+ 17  education_level_y         object 
+ 18  major_discipline_y        object 
+ 19  experience_y              object 
+ 20  company_size_y            object 
+ 21  company_type_y            object 
+ 22  last_new_job_y            object 
+ 23  training_hours_y          int64  
+__________________________________________________________________________________________________________
+# Dependencies
+import pandas as pd
+import numpy as np
+from sqlalchemy import create_engine
+import psycopg2
+
+# Read in Training Data
+training_data = "data/Training.csv"
+training_df = pd.read_csv(training_data)
+training_df
+
+# Check Training Data
+training_df.info()
+
+# Remove City Column
+training_df.drop('city', axis = 'columns', inplace=True)
+training_df
+
+# Reheck Training Data
+training_df.info()
+
+# Drop Rows with NaN
+training_df = training_df.dropna()
+training_df
+
+# Reheck Training Data
+training_df.info()
+
+# Read in Testing Data
+testing_data = "data/Testing.csv"
+testing_df = pd.read_csv(testing_data)
+testing_df
+
+# Check Testing Data
+testing_df.info()
+
+# Remove City Column
+testing_df.drop('city', axis = 'columns', inplace=True)
+testing_df
+
+# Recheck Testing Data
+testing_df.info()
+
+# Drop Rows with NaN
+testing_df = testing_df.dropna()
+testing_df
+
+# Recheck Testing Data
+testing_df.info()
+
+# Merge dataframes
+dsjs_df = pd.concat([training_df, testing_df],0)
+dsjs_df
+
+# Recheck Testing Data
+dsjs_df.info()
