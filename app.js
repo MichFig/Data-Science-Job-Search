@@ -2,9 +2,9 @@
 var dropDown = d3.select("#selDataset");
 
 d3.csv("tanners_data/cleaned_data.csv").then((importedData) => {
-    console.log(importedData[0]);
+    // console.log(importedData[0]);
     var emp_ids = importedData.map(subject => subject.enrollee_id);
-    console.log(emp_ids);
+    // console.log(emp_ids);
 
     emp_ids.forEach(function(subject) {
         // makes new row in table
@@ -38,60 +38,82 @@ function optionChanged(id){
                 "<br>Looking for Job? (1:Yes, 0:No): " + v.target);
             };
         });
-
-//         var subjectdata = Object.fromEntries(Object.entries(importedData.samples).filter(([k,v]) => v.id==id));
-//         subjectdata = Object.values(subjectdata);
-//         //console.log(subjectdata)
-
-//         var otu_ids = subjectdata.map(d => d.otu_ids);
-//         otu_ids = otu_ids[0];
-
-//         var sample_values = subjectdata.map(d=> d.sample_values);
-//         sample_values = sample_values[0];
-//         // console.log(sample_values)
-
-//         var otu_labels = subjectdata.map(d => d.otu_labels);
-//         otu_labels = otu_labels[0];
-// //Bar Graph Code
-//        var bar_dict = {"Sample Values": sample_values, "OTU ID": otu_ids}
-
-       
-//         var sorted_sample_values = sample_values.sort((a, b) => b.sample_values - a.sample_values);
-//         var sliced_sample_values = sorted_sample_values.slice(0, 10).reverse();
-
-//         // console.log(sliced_sample_values)
-
-//         var sorted_otu_ids = otu_ids.sort((a, b) => b.otu_ids - a.otu_ids);
-//         var sliced_otu_ids = sorted_otu_ids.slice(0, 10).reverse();
         
-//         //function for making OTU ids string labels and not integers
-//         var otu_plot_values = []
-//         function otulabeler(item) {
-//             otu_plot_values.push("OTU " + item)
-//             };
+        
+        //Mapping variables csv
+        var subjectdata = Object.fromEntries(Object.entries(importedData).filter(([k,v]) => v.id==id));
+        subjectdata = Object.values(subjectdata);
+        // console.log(subjectdata);
 
-//         sliced_otu_ids.forEach(otulabeler);
-//         // console.log(otu_plot_values);
+//function that groups by columns_________________________________________________________________________
+function groupBy( array , f )
+{
+  var groups = {};
+  array.forEach( function( o )
+  {
+    var group = JSON.stringify( f(o) );
+    groups[group] = groups[group] || [];
+    groups[group].push( o );  
+  });
+  return Object.keys(groups).map( function( group )
+  {
+    return groups[group]; 
+  })
+}
+//_____________________________________________________________________________________________________
+var result = groupBy(importedData, function(item)
+{
+  return [item.target, item.gender];
+});
+console.log(result);
 
-//         var sorted_otu_labels = otu_labels.sort((a, b) => b.otu_labels - a.otu_labels);
-//         var sliced_otu_labels = sorted_otu_labels.slice(0, 10).reverse();
+//assign variables for gender chart
+var male_0_total = result[0].length
+var male_1_total = result[1].length
+
+var female_0_total = result[2].length
+var female_1_total = result[3].length
+
+var other_0_total = result[4].length
+var other_1_total = result[5].length
+
+var target_0 = [male_0_total, female_0_total, other_0_total];
+var target_1 = [male_1_total, female_1_total, other_1_total];
+
+
+        var education_levels = importedData.map(d => d.education_level);
+        // education_levels = education_levels[0];
+        // console.log(education_levels);
+
+        var job_experience = importedData.map(d => d.experience);
+        // job_experience = job_experience[0];
+        // console.log(job_experience);
+
+        var majors = importedData.map(d => d.major_discipline);
+        // majors = majors[0];
+        // console.log(majors);
+
+        var trace1 = {
+            x: ["Male", "Female", "Other"],
+            y: target_0,
+            name: "Not Searching for Job",
+            type: 'bar'
+          };
+          
+          var trace2 = {
+            x: ["Male", "Female", "Other"],
+            y: target_1,
+            name: 'Searching for Job',
+            type: 'bar'
+          };
         
-//         // console.log(sliced_otu_labels)
+        var bar_data = [trace1, trace2]
         
-//         var trace1 = {
-//             type: 'bar',
-//             x: sliced_sample_values,
-//             y: otu_plot_values,
-//             text: sliced_otu_labels,
-//             orientation: 'h'
-//         };
-        
-//         var bar_data = [trace1]
-        
-//         var bar_layout = {
-//             title: `Top 10 OTU's for Subject: ${id}`
-//         }
-// //         Plotly.newPlot('bar', bar_data, bar_layout);
+        var bar_layout = {
+            title: `Gender Breakdown of Employee Pool`,
+            barmode: 'stack'
+        }
+        Plotly.newPlot('bar', bar_data, bar_layout);
 
 
         
@@ -121,4 +143,4 @@ function optionChanged(id){
 });
 };
 
-optionChanged(55)
+optionChanged(400)
