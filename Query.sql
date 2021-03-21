@@ -176,3 +176,28 @@ from
 WHERE dsjs.relevent_experience = 'No relevent experience';
 ____________________________________________________________________________________________________
 SELECT
+relevent_experience,
+major_discipline,
+experience
+
+from graduate
+WHERE relevent_experience ='Has relevent experience' and major_discipline ='STEM' and experience ='10';
+______________________________________________________________________________________________________
+
+SELECT 
+enrollee_id,
+city_development_index,
+gender,
+relevent_experience,
+enrolled_university,
+education_level,
+major_discipline,
+experience,
+company_size,
+company_type,
+last_new_job,
+training_hours,
+target
+
+FROM graduate
+WHERE graduate.target ='0' and graduate.gender ='Male';
