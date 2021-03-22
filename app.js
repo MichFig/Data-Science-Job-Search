@@ -61,38 +61,129 @@ function groupBy( array , f )
   })
 }
 //_____________________________________________________________________________________________________
-var result = groupBy(importedData, function(item)
+//gender variable grouping
+var gender_result = groupBy(importedData, function(item)
 {
   return [item.target, item.gender];
 });
-console.log(result);
+console.log(gender_result);
 
 //assign variables for gender chart
-var male_0_total = result[0].length
-var male_1_total = result[1].length
-
-var female_0_total = result[2].length
-var female_1_total = result[3].length
-
-var other_0_total = result[4].length
-var other_1_total = result[5].length
-
+var male_0_total = gender_result[0].length
+var male_1_total = gender_result[1].length
+var female_0_total = gender_result[2].length
+var female_1_total = gender_result[3].length
+var other_0_total = gender_result[4].length
+var other_1_total = gender_result[5].length
 var target_0 = [male_0_total, female_0_total, other_0_total];
 var target_1 = [male_1_total, female_1_total, other_1_total];
 
+//PHD Values
+var phd_arts_0 = 0;
+var phd_arts_1 = 1;
+var phd_business_0 = 0;
+var phd_business_1 = 0;
+var phd_humanities_0 = 9;
+var phd_humanities_1 = 1;
+var phd_stem_0 = 207;
+var phd_stem_1 = 32;
 
-        var education_levels = importedData.map(d => d.education_level);
-        // education_levels = education_levels[0];
-        // console.log(education_levels);
+//Masters Values
+var masters_arts_0 = 17;
+var masters_arts_1 = 2;
+var masters_business_0 = 39;
+var masters_business_1 = 5;
+var masters_humanities_0 = 120;
+var masters_humanities_1 = 10;
+var masters_stem_0 = 1858;
+var masters_stem_1 = 335;
 
-        var job_experience = importedData.map(d => d.experience);
-        // job_experience = job_experience[0];
-        // console.log(job_experience);
+//Bachelors Values
+var bach_arts_0 = 103;
+var bach_arts_1 = 6;
+var bach_business_0 = 110;
+var bach_business_1 = 16;
+var bach_humanities_0 = 209;
+var bach_humanities_1 = 29;
+var bach_stem_0 = 4545;
+var bach_stem_1 = 1012;
 
-        var majors = importedData.map(d => d.major_discipline);
-        // majors = majors[0];
-        // console.log(majors);
+var art_target_0 = masters_arts_0 + bach_arts_0 + phd_arts_0;
+var art_target_1 = masters_arts_1 + bach_arts_1 + phd_arts_1;
 
+var bus_target_0 = masters_business_0 + phd_business_0 + bach_business_0;
+var bus_target_1 = masters_business_1 + bach_business_1 + phd_business_1;
+
+var hum_target_0 = masters_humanities_0 +phd_humanities_0 + bach_humanities_0;
+var hum_target_1 = masters_humanities_1 +phd_humanities_1 + bach_humanities_1;
+
+var stem_target_0 = bach_stem_0 + phd_stem_0 + masters_stem_0;
+var stem_target_1 = bach_stem_1 + phd_stem_1 + masters_stem_1;
+
+var majors_target_0 = [art_target_0, bus_target_0, hum_target_0, stem_target_0];
+var majors_target_1 = [art_target_1, bus_target_1, hum_target_1, stem_target_1];
+
+//eduction_level variables
+var bachelor_target_0 = bach_arts_0 + bach_business_0+ bach_humanities_0+ bach_stem_0;
+var masters_target_0 = masters_arts_0 + masters_business_0+ masters_humanities_0+ masters_stem_0;
+var phd_target_0 = phd_arts_0 + phd_business_0 + phd_humanities_0 + phd_stem_0 ;
+
+var bachelor_target_1 = bach_arts_1 + bach_business_1 + bach_humanities_1+ bach_stem_1 ;
+var masters_target_1 = masters_arts_1 + masters_business_1+ masters_humanities_1+ masters_stem_1;
+var phd_target_1 = phd_arts_1 + phd_business_1 + phd_humanities_1 + phd_stem_1;
+
+var education_target_0 = [bachelor_target_0, masters_target_0, phd_target_0];
+var education_target_1 = [bachelor_target_1, masters_target_1, phd_target_1];
+
+//Education Level Chart
+var educationtrace1 = {
+    x: ["Bachelors", "Masters", "PhD"],
+    y: education_target_0,
+    name: "Not Searching for Job",
+    type: 'bar'
+  };
+  
+  var educationtrace2 = {
+    x: ["Bachelors", "Masters", "PhD"],
+    y: education_target_1,
+    name: 'Searching for Job',
+    type: 'bar'
+  };
+
+var educationbar_data = [educationtrace1, educationtrace2];
+
+var educationbar_layout = {
+    title: `Breakdown of Employee Pool by Degree Level`,
+    barmode: 'stack'
+}
+Plotly.newPlot('education_bar', educationbar_data, educationbar_layout);
+
+
+//Major Chart
+var majortrace1 = {
+    x: ["Arts", "Business", "Humanities", "STEM"],
+    y: majors_target_0,
+    name: "Not Searching for Job",
+    type: 'bar'
+  };
+  
+  var majortrace2 = {
+    x: ["Arts", "Business", "Humanities", "STEM"],
+    y: majors_target_1,
+    name: 'Searching for Job',
+    type: 'bar'
+  };
+
+var majorbar_data = [majortrace1, majortrace2];
+
+var majorbar_layout = {
+    title: `Breakdown of Employee Pool by Major`,
+    barmode: 'stack'
+}
+Plotly.newPlot('major_bar', majorbar_data, majorbar_layout);
+   
+
+//Gender Chart Construction
         var trace1 = {
             x: ["Male", "Female", "Other"],
             y: target_0,
@@ -113,33 +204,8 @@ var target_1 = [male_1_total, female_1_total, other_1_total];
             title: `Gender Breakdown of Employee Pool`,
             barmode: 'stack'
         }
-        Plotly.newPlot('bar', bar_data, bar_layout);
+        Plotly.newPlot('gender_bar', bar_data, bar_layout);
 
-
-        
-// //Bubble Chart Code
-//         var trace2 = {
-//             x: otu_ids,
-//             y: sample_values,
-//             mode: 'markers',
-//             text: otu_labels,
-//             marker: {
-//               size: sample_values,
-//               color: otu_ids,
-//             }
-//           };
-
-//         var bubblelayout = {
-//             title: `Subject ${id} Bubble Chart`,
-//             showlegend: false,
-//             height: 600
-//         }
-
-//         var bubbledata = [trace2]
-//         Plotly.newPlot('bubble', bubbledata, bubblelayout);
-
-
-//     });
 });
 };
 
