@@ -1,0 +1,18 @@
+*
+  
+  /* Chart for JS Library 
+  var stackedLine = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+        scales: {
+            y: {
+                stacked: true
+            }
+        }
+    }
+});
+  .navbar {
+    padding: 5px;
+    margin: 0;
+  }
