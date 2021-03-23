@@ -6,7 +6,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return ("yay")
+    """List all available api routes."""
+    return (
+        f"Available Routes:<br/>"
+        f"/employer<br/>"
+        f"/employee")
 
 @app.route("/employer")
 def employer():
