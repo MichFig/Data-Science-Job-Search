@@ -21,103 +21,70 @@
       </div>
     </div>
       <div class="col-md-5">
-        <label for="education-level">Select Eduction Level</label>
+        <label for="education-level">How Many Years of Experience Do you Have?</label>
         <select name= "Years-experience" id= "Years-experience">
-          <option value="0-1">"0-1"</option>
-          <option value="1-5">"1-5"</option>
-          <option value="6-10">"6-10"</option>
-          <option value="11-20">"11-20"</option>
-          <option value="20+">">20+"</option>
+          <option value=2>"0-1"</option>
+          <option value=4>"1-5"</option>
+          <option value=8>"6-10"</option>
+          <option value=16>"11-20"</option>
+          <option value=20>">20+"</option>
         </select>
+        <br>
         <label for="Major">Select Area of Study</label>
         <select name= "Major" id= "Major">
-          <option value="STEM">STEM</option>
-          <option value="Business">Business</option>
-          <option value="Other">Other</option>
+          <option value=4>STEM</option>
+          <option value=2>Business</option>
+          <option value=1>Other</option>
         </select>
+        <br>
         <label for="relevent-experience">Do You Have Relevent Experience?</label>
         <select name= "experience" id= "experience">
-          <option value= "true">Yes</option>
-          <option value="false">No</option>
+          <option value= 1>Yes</option>
+          <option value=0.25>No</option>
         </select>
+        <br>
       </select>
       <label for="training-hours">How Many Training Hours Do You Have?</label>
       <select name= "training-hours" id= "training-hours">
-        <option value= "<20">0-20</option>
-        <option value="20-40">21-40</option>
-        <option value= "41-60">41-60</option>
-        <option value="61-80">61-80</option>
-        <option value= "80">80+</option>
+        <option value= 0>0-20</option>
+        <option value=5>21-40</option>
+        <option value= 10>41-60</option>
+        <option value=15>61-80</option>
+        <option value= 20>80+</option>
       </select>
-      <button id="btn">Get the Selected Value</button>
+      <br>
+      <button id="btn">Click here to Calculate Your Score!!</button>
       <script>
         const btn = document.querySelector('#btn');
         const years_experience = document.querySelector("#Years-experience")
         const major = document.querySelector("#Major")
         const RE = document.querySelector("#experience")
         const training_hours = document.querySelector("#training-hours")
-        const parameters = []
+        
           btn.onclick = (event) => {
+            parameters = [];
               parameters.push(years_experience.value, major.value, RE.value,
                training_hours.value);
                console.log(parameters);
+               const number_list = parameters.map((i) => Number(i));
+             
+              console.log(number_list)
+              
+              function CalculateScore(number_list) {
+                var RE_values = number_list[2];
+                var major_values = number_list[1];
+                var years_exp_values = number_list[0];
+                var training_hours_values = number_list[3];
+                var score =  (RE_values * major_values * years_exp_values) + training_hours_values;
+                console.log(score);
+                alert("your employment score is :" + score);
+              };
+              CalculateScore(number_list);
             event.preventDefault();
         };
-function calculateScore(parameters){
-//"Relevant Experience" formula calculation VARIABLES
-var RE = parameters[2];
-var major = parameters[1];
-var years_exp = parameters[0];
-var training_hours = parameters[3];
-
-
-//"Relevant Experience" formula calculation SCORE ELEMENTS
-var major_multiplier = {
-    "STEM":4,
-    "Business":2,
-    "Other":1,
-}
-
-var RE_Y_years_exp = {
-    "<1":2,
-    "1-5":4,
-    "6-10":8,
-    "11-20":16,
-    ">20":20
-};
-var RE_N_years_exp = {
-    "<1":0.5,
-    "1-5":1,
-    "6-10":2,
-    "11-20":4,
-    ">20":5
-};
-
-var RE_Y_training_hours = {
-    "<20":0,
-    "20-40":5,
-    "41-60":10,
-    "61-80":15,
-    ">80":20
-};
-var RE_N_training_hours = {
-    "<20":0,
-    "20-40":20,
-    "41-60":40,
-    "61-80":60,
-    ">80":80
-};
-
-//For every person in the dataset
-if (RE = true) {
-    (major_multiplier * RE_Y_years_exp) + (RE_Y_training_hours)
-} else {
-    (major_multiplier * RE_N_years_exp) + (RE_N_training_hours)
-}
-};
       </script>
       </div>
-      <div class="col-md-5">
+      <div class="col-lg-10">
         <div id="score-chart"></div>
       </div>
     </div>
