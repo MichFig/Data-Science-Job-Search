@@ -14,30 +14,42 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1> Employer Home</h1>
-        <p>Use the Dropdown to look up individual attributes by employee ID. Demographic summary information provided
-          in the charts below.  Hover over charts to see the exact number of each category seeking employment.
+        <h1> Employee Home</h1>
+        <p>Input your information in the DropDown menues below to see how you stack up against
+          fellow applicants!
         </p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-2">
-        <div class="well">
-          <h5>Employee ID Number:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Employee Information</h3>
-          </div>
-          <div id="sample-metadata" class="panel-body"></div>
-        </div>
+      <div class="col-md-5">
+        <label for="education-level">Select Eduction Level</label>
+        <select name= "Education-Level" id= "Education-Level">
+          <option value="Bachelors">Bachelor's Degree</option>
+          <option value="Masters">Master's Degree</option>
+          <option value="PhD">PhD</option>
+        </select>
+        <label for="Major">Select Area of Study</label>
+        <select name= "Major" id= "Major">
+          <option value="STEM">STEM</option>
+          <option value="business">Business</option>
+          <option value="other">Other</option>
+        </select>
+        <label for="relevent-experience">Do You Have Relevent Experience?</label>
+        <select name= "experience" id= "experience">
+          <option value= "True">Yes</option>
+          <option value="False">No</option>
+        </select>
+      </select>
+      <label for="training-hours">How Many Training Hours Do You Have?</label>
+      <select name= "training-hours" id= "training-hours">
+        <option value= 1>0-20</option>
+        <option value=2>21-40</option>
+        <option value= 3>41-60</option>
+        <option value=4>61-80</option>
+        <option value= 5>80+</option>
+      </select>
       </div>
       <div class="col-md-5">
-        <div id="gender_bar"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="major_bar"></div>
+        <div id="score-chart"></div>
       </div>
     </div>
     <div class="row">
