@@ -1,4 +1,4 @@
-id,enrollee_id,gender,relevent_experience,education_level,major_discipline,experience,Training Hours,Years of Experience,Relevant Experience Score
+id,enrollee_id,gender,relevent_experience,education_level,major_discipline,experience,Training_Hours,Years_of_Experience,Relevant_Experience_Score
 17180,9909,Other,No relevent experience,Graduate,Other,0.5,>80,<1,80.5
 4946,17690,Female,Has relevent experience,Masters,Other,0.5,61-80,<1,17.0
 8387,12683,Female,No relevent experience,Graduate,Other,0.5,20-40,<1,20.5
