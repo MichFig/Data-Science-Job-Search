@@ -1,5 +1,5 @@
 //constructing HTML table by Employee ID
-alert("yay");
+// alert("yay");
 var dropDown = d3.select("#selDataset");
 
 d3.csv("static/js/cleaned_data.csv").then((importedData) => {
