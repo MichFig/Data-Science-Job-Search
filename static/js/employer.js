@@ -40,11 +40,6 @@ function optionChanged(id){
             };
         });
         
-        
-        //Mapping variables csv
-        var subjectdata = Object.fromEntries(Object.entries(importedData).filter(([k,v]) => v.id==id));
-        subjectdata = Object.values(subjectdata);
-        // console.log(subjectdata);
 
 //function that groups by columns_________________________________________________________________________
 function groupBy( array , f )
@@ -210,4 +205,4 @@ Plotly.newPlot('major_bar', majorbar_data, majorbar_layout);
 });
 };
 
-optionChanged(400)
+optionChanged(400);
